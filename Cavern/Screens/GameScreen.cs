@@ -94,6 +94,12 @@ namespace Cavern
             }
         }
 
+        public void TempMethod()
+        {
+            //jkalsdjflkED
+        }
+
+
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             //TODO move main character        
@@ -108,7 +114,7 @@ namespace Cavern
                 crusaderDesign(yPosition);
             }
 
-
+            TempMethod();
             //TODO collisions checks 
 
 
