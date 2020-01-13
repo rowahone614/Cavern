@@ -13,6 +13,8 @@ namespace Cavern
 {
     public partial class MainForm : Form
     {
+        public static string playerName;
+
         bool fullScreen = false;  // true: program runs fullscreen || false: program runs in window
 
         public MainForm()

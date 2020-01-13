@@ -14,13 +14,14 @@ namespace Cavern
     public partial class GameScreen : UserControl
     {
         //player1 button control keys - DO NOT CHANGE
-        Boolean leftArrowDown, downArrowDown, rightArrowDown, upArrowDown, bDown, nDown, mDown, spaceDown;
+        Boolean downArrowDown, upArrowDown;
 
         //player2 button control keys - DO NOT CHANGE
-        Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
+        //Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
 
         //TODO create your global game variables here
-        int heroX, heroY, heroSize, heroSpeed;
+        int yPosition;
+        int crusaderSpeed;
         SolidBrush heroBrush = new SolidBrush(Color.Black);
 
         public GameScreen()
@@ -33,10 +34,9 @@ namespace Cavern
         {
             //TODO - setup all your initial game values here. Use this method
             // each time you restart your game to reset all values.
-            heroX = 100;
-            heroY = 100;
-            heroSize = 20;
-            heroSpeed = 5;
+            yPosition = 200;
+            crusaderSpeed = 5;
+            nameLabel.Text = MainForm.playerName;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -46,7 +46,7 @@ namespace Cavern
             if (e.KeyCode == Keys.Escape && gameTimer.Enabled)
             {
                 gameTimer.Enabled = false;
-                rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
+                upArrowDown = downArrowDown = false;
 
                 DialogResult result = PauseForm.Show();
 
@@ -66,14 +66,8 @@ namespace Cavern
             //player 1 button presses
             switch (e.KeyCode)
             {
-                case Keys.Left:
-                    leftArrowDown = true;
-                    break;
                 case Keys.Down:
                     downArrowDown = true;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = true;
                     break;
                 case Keys.Up:
                     upArrowDown = true;
@@ -89,14 +83,8 @@ namespace Cavern
             //player 1 button releases
             switch (e.KeyCode)
             {
-                case Keys.Left:
-                    leftArrowDown = false;
-                    break;
                 case Keys.Down:
                     downArrowDown = false;
-                    break;
-                case Keys.Right:
-                    rightArrowDown = false;
                     break;
                 case Keys.Up:
                     upArrowDown = false;
@@ -104,32 +92,19 @@ namespace Cavern
             }
         }
 
-        /// <summary>
-        /// This is the Game Engine and repeats on each interval of the timer. For example
-        /// if the interval is set to 16 then it will run each 16ms or approx. 50 times
-        /// per second
-        /// </summary>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            //TODO move main character 
-            if (leftArrowDown == true)
+            //TODO move main character        
+            if (downArrowDown == true && yPosition <= this.Height - 41)
             {
-                heroX = heroX - heroSpeed;
+                yPosition = yPosition + crusaderSpeed;
+                crusaderDesign(yPosition);
             }
-            if (downArrowDown == true)
+            if (upArrowDown == true && yPosition >= 0)
             {
-                heroY = heroY + heroSpeed;
+                yPosition = yPosition - crusaderSpeed;
+                crusaderDesign(yPosition);
             }
-            if (rightArrowDown == true)
-            {
-                heroX = heroX + heroSpeed;
-            }
-            if (upArrowDown == true)
-            {
-                heroY = heroY - heroSpeed;
-            }
-
-            //TODO move npc characters
 
 
             //TODO collisions checks 
@@ -141,10 +116,14 @@ namespace Cavern
 
 
         //Everything that is to be drawn on the screen should be done here
-        private void GameScreen_Paint(object sender, PaintEventArgs e)
+        //private void GameScreen_Paint(object sender, PaintEventArgs e)
+        //{
+        //    //draw rectangle to screen
+        //    e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+        //}
+        private void crusaderDesign(int crusaderY)
         {
-            //draw rectangle to screen
-            e.Graphics.FillRectangle(heroBrush, heroX, heroY, heroSize, heroSize);
+            crusaderImage.Location = new Point(100, crusaderY);
         }
     }
 

@@ -13,7 +13,6 @@ namespace Cavern
 {
     public partial class MenuScreen : UserControl
     {
-        int yPosition;
         public MenuScreen()
         {
             InitializeComponent();
@@ -34,8 +33,11 @@ namespace Cavern
     
         private void PlayGameButton_Click(object sender, EventArgs e)
         {
+            MainForm.playerName = nameInput.Text;
+
             MainForm.ChangeScreen(this, "GameScreen");
             crusaderDesign(200);
+            
         }
 
         private void ScoreButton_Click(object sender, EventArgs e)
@@ -52,6 +54,10 @@ namespace Cavern
         private void crusaderDesign(int crusaderY)
         {
             crusaderImage.Location = new Point(100, crusaderY);
+        }
+
+        private void MenuScreen_Load(object sender, EventArgs e)
+        {
 
         }
     }
