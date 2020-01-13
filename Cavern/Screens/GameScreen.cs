@@ -26,6 +26,7 @@ namespace Cavern
         int yPosition;
         int crusaderSpeed;
         SolidBrush heroBrush = new SolidBrush(Color.Black);
+        Random rGen = new Random();
 
         public GameScreen()
         {
@@ -133,6 +134,12 @@ namespace Cavern
         private void crusaderDesign(int crusaderY)
         {
             crusaderImage.Location = new Point(100, crusaderY);
+        }
+
+
+        private void obstacleDesign()
+        {
+            
         }
     }
 
